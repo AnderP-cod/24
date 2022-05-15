@@ -1,3 +1,4 @@
+from sys import stdin
 
 class Bankacaynt():
 
@@ -6,21 +7,42 @@ class Bankacaynt():
         self.__pincot = pincot
         self.__pye = pye
 
+    def __add__(self):
+        self.__room = int(input("Напишите номер карты: "))
+        if self.__room >= 999999999999999 and self.__room <= 10000000000000000: #1234567891234567
+            self.__pincot = int(int(input("Напишите пинкот: ")))
+            if self.__pincot >= 1000 and self.__pincot < 10000:
+                self.__pye = int(input("Напишите сколько денег у вас на карте: "))
+                return "Вы вошли в акаунт банка"
+        else:
+            print("Ошибка")
+
+
     def All_information(self):
         pincot = input("Pin: ")
         if self.__pincot == int(pincot):
-            return f"{self.__room} {self.__pincot} {self.__pye}"
+            return f"Карта {self.__room}, пинкот {self.__pincot},  баланс {self.__pye}"
         return "Неправельный pin"
 
     def Top_up_card(self):
-        pye = input("На какую сумму хотите пополнить карточку: ")
-        self.__pye += int(pye)
-        return f"{self.__pye}"
+        pincot = input("Pin: ")
+        if self.__pincot == int(pincot):
+            pye = input("На какую сумму хотите пополнить карточку: ")
+            self.__pye += int(pye)
+            return f"{self.__pye}"
+        return "Неправельный pin"
 
     def Xiang_money(self):
-        pye2 = input("Сколько денег вы хотите снять денег с карты: ")
-        self.__pye -= int(pye2)
-        return f'Вы сняли денег {pye2} \nувас осталося на карте {self.__pye} '
+        pincot = input("Pin: ")
+        if self.__pincot == int(pincot):
+            pye2 = int(input("Сколько денег вы хотите снять денег с карты: "))
+            if pye2 <= self.__pye:
+                self.__pye -= int(pye2)
+                return f'Вы сняли  {pye2} грн \nу вас осталося на карте {self.__pye} '
+            else:
+                return "Вы хотите снять больше чем у вас на карте"
+        else:
+            return "Неправельный pin"
 
 
 
@@ -37,7 +59,8 @@ class Bankomat(Bankacaynt):
     def Bankomat_Xiang_money():
         return emp_1.Xiang_money()
 
-emp_1 = Bankacaynt(input("Напишите номер карты: "),int(input("Напишите пинкот: ")),int(input("Напишите сколько денег у вас на карте: ")))
+emp_1 = Bankacaynt("","","")
+print(emp_1.__add__())
 print()
 print("1) Посмотреть баланс")
 print("2) Пополнить карту")
@@ -51,3 +74,5 @@ elif item1 == "2":
     print(Bankomat.Bankomat_Top_up_card())
 elif item1 == "3":
     print(Bankomat.Bankomat_Xiang_money())
+else:
+    print("Ошибка")
