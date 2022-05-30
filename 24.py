@@ -14,13 +14,15 @@ class Bankacaynt:
         nu2 = 999999999999999
         self.__room = int(input("Напишите номер карты: "))
         if self.__room >= nu2 and self.__room <= nu1:
-            self.__pincot = int(int(input("Напишите пинкот: ")))
+            self.__pincot = int(int(input("Напишите пин код: ")))
             if self.__pincot >= 1000 and self.__pincot < 10000:
-                self.__pye = int(input("Напишите сколько денег /"
+                self.__pye = int(input("Напишите сколько денег "
                                        "у вас на карте: "))
                 return "Вы вошли в акаунт банка"
+            else:
+                return "Ошибка 02: Ваш пин код не соответствует требованием"
         else:
-            print("Ошибка")
+            return "Ошибка 01: Ваш номер карты не соответствует требованием"
 
     def All_information(self):  # вся информация про акаунт пользователя
         pincot = input("Pin: ")
